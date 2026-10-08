@@ -18,6 +18,7 @@ MODULES = [
 	"seed_helpdesk_teams",
 	"seed_billing_architecture",  # service-scope custom fields, payment terms
 	"seed_accounts_settings",
+	"seed_payment_modes",  # Cash accounts per company, Uroojj COD
 	"seed_role_profiles",
 	"seed_letterheads",
 	"seed_naming_rules",
