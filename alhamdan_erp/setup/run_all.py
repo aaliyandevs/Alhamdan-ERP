@@ -8,6 +8,7 @@ MODULES = [
 	"seed_foundation",  # masters, companies, fiscal years, setup-complete flags
 	"seed_people_items",  # users, Uroojj items, Nooria Travels customer
 	"seed_finance",  # exchange rates, price lists, tax templates, Uroojj warehouses
+	"seed_item_defaults",  # default warehouse per Uroojj item
 	"seed_hr",  # holiday list, leave policy, employees
 	"apply_corrections",  # cross-company access, Yasir, joining dates, leave assignments
 	"fix_employee_perms",  # drop auto-created restrictions for HR manager / admins
