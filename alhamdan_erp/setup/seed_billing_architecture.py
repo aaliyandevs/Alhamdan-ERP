@@ -5,6 +5,7 @@ import frappe
 # instead of relying on a Price List / Item that doesn't exist.
 CUSTOM_FIELDS = [
 	("Quotation", "custom_service_scope", "Service Scope / Package", "Small Text", "Agreed scope of work for this custom engagement (Infiqo has no fixed item catalog)."),
+	("Sales Order", "custom_service_scope", "Service Scope / Package", "Small Text", "Agreed scope of work, carried through to the invoice."),
 	("Sales Invoice", "custom_service_scope", "Service Scope / Package", "Small Text", "Scope of work this invoice covers."),
 	("Project", "custom_service_scope", "Service Scope / Package", "Small Text", "Agreed scope for this client engagement."),
 ]
@@ -12,7 +13,7 @@ CUSTOM_FIELDS = [
 PAYMENT_TERMS = [
 	# name, invoice_portion, due_date_based_on, credit_days, description
 	("Infiqo - 50% Advance", 50, "Day(s) after invoice date", 0, "50% due immediately on invoice."),
-	("Infiqo - 50% on Delivery", 50, "Day(s) after invoice date", 0, "Remaining 50% due on project delivery/completion."),
+	("Infiqo - 50% on Delivery", 50, "Day(s) after invoice date", 30, "Remaining 50% due on project delivery/completion."),
 	("Infiqo - Retainer Net 15", 100, "Day(s) after invoice date", 15, "Monthly retainer, due 15 days from invoice date."),
 	("Uroojj - Cash on Delivery", 100, "Day(s) after invoice date", 0, "Full amount collected on delivery (COD)."),
 ]

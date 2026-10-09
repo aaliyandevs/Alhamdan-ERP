@@ -73,8 +73,13 @@ def run():
 		for row in frappe.get_all("Installed Application", filters={"app_name": app}, pluck="name"):
 			frappe.db.set_value("Installed Application", row, "is_setup_complete", 1)
 
+	# The wizard sets this; left at the install default ("setup-wizard") the desk loops between
+	# /desk and the wizard even though setup is complete.
+	frappe.db.set_default("desktop:home_page", "workspace")
+
 	gd = frappe.get_single("Global Defaults")
 	gd.default_company = "Al Hamdan Enterprise"
+	gd.default_currency = "PKR"
 	gd.save(ignore_permissions=True)
 
 	frappe.db.commit()

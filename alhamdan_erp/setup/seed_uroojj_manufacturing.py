@@ -30,7 +30,7 @@ def run():
 		qt = frappe.new_doc("Quality Inspection Template")
 		qt.quality_inspection_template_name = QC_TEMPLATE
 		for p in QC_PARAMETERS:
-			qt.append("item_quality_inspection_parameter", {"specification": p})
+			qt.append("item_quality_inspection_parameter", {"specification": p, "numeric": 0})
 		qt.insert(ignore_permissions=True)
 		print("created QC template", QC_TEMPLATE)
 
