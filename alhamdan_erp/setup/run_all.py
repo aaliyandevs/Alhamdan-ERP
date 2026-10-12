@@ -15,16 +15,19 @@ MODULES = [
 	"seed_infiqo_pipeline",  # CRM stages + Project Template
 	"fix_crm_order",  # Infiqo stages first, then Won/Lost, CRM built-ins last
 	"seed_uroojj_manufacturing",  # operations, workstations, QC template
-	"seed_helpdesk_teams",
-	"seed_helpdesk_agents",  # HD Agent records (grants the Agent role)
 	"seed_billing_architecture",  # service-scope custom fields, payment terms
 	"seed_infiqo_service_item",  # generic Custom Service item for Infiqo
 	"fix_company_defaults",  # default accounts, 50/50 due dates, scheduler
 	"seed_accounts_settings",
 	"seed_payment_modes",  # Cash accounts per company, Uroojj COD
 	"seed_role_profiles",
+	"apply_role_profiles",  # switch existing users from individual roles to profiles
 	"seed_letterheads",
 	"seed_naming_rules",
+	"seed_departments",  # employee -> department (inferred from role)
+	"seed_attendance",  # Shift Type + Shift Assignment (Mon-Fri)
+	"seed_tax_withholding",  # Uroojj 2% COD e-commerce withholding
+	"seed_intercompany",  # Infiqo <-> Uroojj internal customer/supplier linkage
 	"fix_functional_defects",  # currency default, HR holiday assignment, QC, roles
 	"branding",  # white-label names, hide unused modules
 	"company_home",  # Home = 3 company tiles, each with its own sidebar

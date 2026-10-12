@@ -305,11 +305,6 @@ def infiqo():
 
 	step("CRM: Lead converts to Deal and moves through the Infiqo pipeline to Won", crm)
 
-	def ticket():
-		t = frappe.get_doc({"doctype": "HD Ticket", "subject": "TMP ticket", "raised_by": "client@example.com", "description": "test", "agent_group": "Infiqo Support"}).insert(ignore_permissions=True)
-		return f"{t.name}: status={t.status}, team={t.agent_group}"
-
-	step("Helpdesk: ticket raised and routed to Infiqo Support", ticket)
 
 
 # ---------------------------------------------------------------- HR
@@ -395,7 +390,7 @@ def access():
 		"Yasir (COO)": "iamyasirmarwat@gmail.com",
 		"Syed (founder)": "syedameenulhassanhamdani786@gmail.com",
 	}
-	checks = [("Sales Invoice", "create"), ("Quotation", "create"), ("Customer", "create"), ("Project", "read"), ("Timesheet", "create"), ("Leave Application", "create"), ("Salary Slip", "read"), ("Stock Entry", "create"), ("Purchase Order", "create"), ("CRM Lead", "create"), ("HD Ticket", "read"), ("Item", "create")]
+	checks = [("Sales Invoice", "create"), ("Quotation", "create"), ("Customer", "create"), ("Project", "read"), ("Timesheet", "create"), ("Leave Application", "create"), ("Salary Slip", "read"), ("Stock Entry", "create"), ("Purchase Order", "create"), ("CRM Lead", "create"), ("Item", "create")]
 	OUT.append("columns: " + ", ".join(f"{d}:{p}" for d, p in checks))
 	for label, u in users.items():
 		row = []
@@ -473,9 +468,20 @@ def _default_currency():
 	return "new Infiqo invoice defaults to PKR"
 
 
+def _intercompany():
+	cust = frappe.get_doc("Customer", "Uroojj")
+	supp = frappe.get_doc("Supplier", "Infiqo")
+	assert cust.is_internal_customer and cust.represents_company == "Uroojj", cust.as_dict()
+	assert "Infiqo" in [r.company for r in cust.companies]
+	assert supp.is_internal_supplier and supp.represents_company == "Infiqo", supp.as_dict()
+	assert "Uroojj" in [r.company for r in supp.companies]
+	return "Infiqo can invoice internal customer Uroojj; Uroojj can bill internal supplier Infiqo"
+
+
 _orig_infra = infra
 
 
 def infra():  # noqa: F811
 	step("New invoices default to PKR (not INR)", _default_currency)
+	step("Intercompany linkage: Infiqo <-> Uroojj (internal customer/supplier)", _intercompany)
 	_orig_infra()

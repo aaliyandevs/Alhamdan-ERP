@@ -265,3 +265,14 @@ app_include_js = "/assets/alhamdan_erp/js/sidebar_accordion.js"
 
 # Re-apply branding/menu clean-up after every migrate (Frappe re-syncs its standard icons).
 after_migrate = ["alhamdan_erp.setup.branding.apply", "alhamdan_erp.setup.company_home.apply"]
+
+# No system cron daemon runs in this dev container (no init system, just `sleep infinity`),
+# so the usual `bench setup backups` crontab approach is a no-op here. The Frappe in-app
+# scheduler process (`bench schedule`) does run continuously, so hook the daily backup onto
+# that instead. `scheduled_backup` is the same function bench's own cron normally calls; it
+# skips taking a new backup if the last one is under `older_than` (6h) old, and prunes old ones.
+scheduler_events = {
+	"daily": [
+		"alhamdan_erp.setup.auto_backup.run",
+	],
+}

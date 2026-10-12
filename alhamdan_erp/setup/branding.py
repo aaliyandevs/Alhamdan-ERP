@@ -1,8 +1,8 @@
 import frappe
 
 # White-labelling and menu clean-up, done purely through settings records (no changes to
-# the Frappe/ERPNext/HRMS/CRM/Helpdesk code). Runs after every `bench migrate` (hooks.py)
-# because Frappe re-syncs its standard desktop icons/workspaces on migrate.
+# the Frappe/ERPNext/HRMS/CRM code). Runs after every `bench migrate` (hooks.py) because
+# Frappe re-syncs its standard desktop icons/workspaces on migrate.
 
 ERP_NAME = "Alhamdan ERP"
 
@@ -12,7 +12,6 @@ RENAME_ICONS = {
 	"Framework": "Admin",
 	"Frappe HR": "HR",
 	"Frappe CRM": "Infiqo CRM",
-	"Helpdesk": "Support Desk",
 }
 
 # Modules the group does not use. Hidden, not deleted: unhide any of them to bring it back.
@@ -52,11 +51,6 @@ def apply():
 	crm.currency = "PKR"
 	crm.persona_captured = 1
 	crm.save(ignore_permissions=True)
-
-	hd = frappe.get_single("HD Settings")
-	hd.brand_name = "Alhamdan Support"
-	hd.persona_captured = 1
-	hd.save(ignore_permissions=True)
 
 	frappe.db.set_single_value("System Settings", "enable_onboarding", 0)
 	frappe.db.commit()
